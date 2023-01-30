@@ -47,10 +47,12 @@ struct StartView: View {
                 
         }
         .background(Image("background"))
-        .fullScreenCover(isPresented: $gameView) {
+        .fullScreenCover(isPresented: $gameView, content: {
             GameView()
-        }
+        })
+        
     }
+    
 }
 
 struct ContentView_Previews: PreviewProvider {

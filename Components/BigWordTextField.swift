@@ -17,6 +17,8 @@ struct BigWordTextField: View {
             .font(.title2)
             .padding()
             .background(.white)
+            .background(Image("background"))
             .cornerRadius(12)
+            
     }
 }
