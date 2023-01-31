@@ -11,18 +11,15 @@ struct GameView: View {
     
     @State var startView = false
     @State private var word = ""
+    var viewModel : GameViewModule
     
     var body: some View {
-        ZStack{
-            Image("background")
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                //.frame(width: .infinity, height: .infinity)
-                .ignoresSafeArea(.all)
+        
+            
             
             VStack(spacing: 16){
-                
-                Text("Магнитотерапия")
+                Spacer()
+                Text(viewModel.word)
                     .font(.custom("AvenirNext-Bold", size: 36))
                     .foregroundColor(Color.white)
                 
@@ -31,27 +28,27 @@ struct GameView: View {
                     
                     VStack{
                         
-                        Text("0")
+                        Text("\(viewModel.playerOne.score)")
                             .foregroundColor(.white)
                             .font(.custom("AvenirNext-Bold", size: 65))
-                        Text("Vasya")
+                        Text("\(viewModel.playerOne.name)")
                             .foregroundColor(.white)
                             .font(.custom("AvenirNext-Bold", size: 24))
                     }
-                    .padding(20)
-                    .frame(width: UIScreen.main.bounds.width / 2.5, height: UIScreen.main.bounds.height / 4.5)
+                    .padding(15)
+                    .frame(width: UIScreen.main.bounds.width / 2.5, height: UIScreen.main.bounds.height / 5.0)
                     .background(Color("firstPlayer"))
                     .cornerRadius(25)
                     VStack{
-                        Text("0")
+                        Text("\(viewModel.playerTwo.score)")
                             .foregroundColor(.white)
                             .font(.custom("AvenirNext-Bold", size: 65))
-                        Text("Petya")
+                        Text("\(viewModel.playerTwo.name)")
                             .foregroundColor(.white)
                             .font(.custom("AvenirNext-Bold", size: 24))
                     }
-                    .padding(20)
-                    .frame(width: UIScreen.main.bounds.width / 2.5 , height: UIScreen.main.bounds.height / 4.5)
+                    .padding(15)
+                    .frame(width: UIScreen.main.bounds.width / 2.5 , height: UIScreen.main.bounds.height / 5.0)
                     .background(Color("secondPlayer"))
                     .font(.custom("AvenirNext-Bold", size: 24))
                     .cornerRadius(25)
@@ -63,8 +60,11 @@ struct GameView: View {
                     .padding(.horizontal)
                 
                 Button {
-                    print("Done")
-                    self.word = ""
+                   let score = viewModel.checkWord(word: word)
+                    if score > 0 {
+                        self.word = ""
+                    }
+                    
                 } label: {
                     Text("Готово!")
                         .padding(12)
@@ -85,21 +85,29 @@ struct GameView: View {
                         .foregroundColor(.white)
                         .cornerRadius(15)
                 }
+                
+                List{
+                    
+                }
+                .listStyle(.plain)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                
+                
 
                 
             }
+            .background(Image("background"))
             .fullScreenCover(isPresented: $startView, content: {
                 StartView()
             })
-        }
-        
-        List{
             
-        }
-        .listStyle(.plain)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+            
+        
+        
+        
         
         }
+    
         
         
         
@@ -129,7 +137,10 @@ struct GameView: View {
 
 struct GameView_Previews: PreviewProvider {
     static var previews: some View {
-        GameView()
+        GameView(viewModel: GameViewModule(playerOne:
+                                            Player(name: "Vasya"),
+                                           playerTwo: Player(name: "Fedya"),
+                                           word: "Реконосцировка"))
         
     }
 }
