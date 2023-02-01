@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		56775ECE29898B44008F832C /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56775ECD29898B44008F832C /* Player.swift */; };
 		56775ED129898C7D008F832C /* GameViewModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56775ED029898C7D008F832C /* GameViewModule.swift */; };
+		56CD8C96298A6448002BC835 /* WordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56CD8C95298A6448002BC835 /* WordCell.swift */; };
 		56E7EA7F29854088008BD29A /* makeAWordsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E7EA7E29854088008BD29A /* makeAWordsApp.swift */; };
 		56E7EA8129854088008BD29A /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E7EA8029854088008BD29A /* StartView.swift */; };
 		56E7EA8329854089008BD29A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56E7EA8229854089008BD29A /* Assets.xcassets */; };
@@ -21,6 +22,7 @@
 /* Begin PBXFileReference section */
 		56775ECD29898B44008F832C /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		56775ED029898C7D008F832C /* GameViewModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModule.swift; sourceTree = "<group>"; };
+		56CD8C95298A6448002BC835 /* WordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordCell.swift; sourceTree = "<group>"; };
 		56E7EA7B29854088008BD29A /* makeAWords.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = makeAWords.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56E7EA7E29854088008BD29A /* makeAWordsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = makeAWordsApp.swift; sourceTree = "<group>"; };
 		56E7EA8029854088008BD29A /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 			children = (
 				56E7EA8D2985A438008BD29A /* TitleText.swift */,
 				56E7EA912985A6D8008BD29A /* BigWordTextField.swift */,
+				56CD8C95298A6448002BC835 /* WordCell.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -189,6 +192,7 @@
 				56E7EA8E2985A438008BD29A /* TitleText.swift in Sources */,
 				56E7EA7F29854088008BD29A /* makeAWordsApp.swift in Sources */,
 				56775ECE29898B44008F832C /* Player.swift in Sources */,
+				56CD8C96298A6448002BC835 /* WordCell.swift in Sources */,
 				56775ED129898C7D008F832C /* GameViewModule.swift in Sources */,
 				56E7EA962985A8FA008BD29A /* GameView.swift in Sources */,
 			);

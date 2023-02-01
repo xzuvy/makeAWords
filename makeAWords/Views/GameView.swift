@@ -12,6 +12,11 @@ struct GameView: View {
     @State var startView = false
     @State private var word = ""
     var viewModel : GameViewModule
+    @State private var confirmPresent = false
+    @State private var isAlertPresent = false
+    @State var alertText = ""
+    
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         
@@ -39,6 +44,7 @@ struct GameView: View {
                     .frame(width: UIScreen.main.bounds.width / 2.5, height: UIScreen.main.bounds.height / 5.0)
                     .background(Color("firstPlayer"))
                     .cornerRadius(25)
+                    .shadow(color: viewModel.isFirst ? .blue : .clear, radius: 4)
                     VStack{
                         Text("\(viewModel.playerTwo.score)")
                             .foregroundColor(.white)
@@ -52,6 +58,7 @@ struct GameView: View {
                     .background(Color("secondPlayer"))
                     .font(.custom("AvenirNext-Bold", size: 24))
                     .cornerRadius(25)
+                    .shadow(color: viewModel.isFirst ?  .clear : .purple, radius: 4)
                     
                     
                     
@@ -60,7 +67,29 @@ struct GameView: View {
                     .padding(.horizontal)
                 
                 Button {
-                   let score = viewModel.checkWord(word: word)
+                    
+                    var score = 0
+                    
+                    do{
+                        try score = viewModel.checkWord(word: word)
+                    } catch WordError.beforeWord{
+                        alertText = "Придумай новое слово которое не было составлено ранее"
+                        isAlertPresent.toggle()
+                    } catch WordError.littleWord{
+                        alertText = "Слишком короткое слово"
+                        isAlertPresent.toggle()
+                    } catch WordError.theSameWord{
+                        alertText = "Составленное слово не должно быть с исходным словом"
+                        isAlertPresent.toggle()
+                    } catch WordError.wrongWord{
+                        alertText = "Такое слово не может быть составлено"
+                        isAlertPresent.toggle()
+                    } catch{
+                        alertText = "Неизвестная ошибка"
+                        isAlertPresent.toggle()
+                    }
+                        
+                    
                     if score > 0 {
                         self.word = ""
                     }
@@ -76,7 +105,8 @@ struct GameView: View {
                         .padding(.horizontal)
                 }
                 Button {
-                    startView.toggle()
+                    
+                    confirmPresent.toggle()
                 } label: {
                     Text("Выход")
                         .padding(12)
@@ -87,9 +117,17 @@ struct GameView: View {
                 }
                 
                 List{
-                    
+                   
+                    ForEach(0 ..< self.viewModel.words.count, id: \.description){
+                        item in
+                        WordCell(word: self.viewModel.words[item])
+                            .background(item % 2 == 0 ? Color("firstPlayer") : Color("secondPlayer"))
+                            .listRowInsets(EdgeInsets())
+                        
+                    }
                 }
                 .listStyle(.plain)
+                .background(Color.clear)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 
                 
@@ -97,6 +135,25 @@ struct GameView: View {
                 
             }
             .background(Image("background"))
+            .confirmationDialog("Вы уверены, что хотите завершить игру?",
+                                isPresented: $confirmPresent,
+                                titleVisibility: .visible){
+                Button (role : .destructive){
+                    self.dismiss()
+                } label: {
+                    Text("Да")
+                }
+                Button(role : .cancel) {}
+                    label: {
+                    Text("Нет")
+                }
+
+
+            }
+            .alert(alertText, isPresented: $isAlertPresent){
+            Text("Ok, понял")
+            }
+                                
             .fullScreenCover(isPresented: $startView, content: {
                 StartView()
             })
