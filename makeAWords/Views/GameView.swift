@@ -127,14 +127,11 @@ struct GameView: View {
                     }
                 }
                 .listStyle(.plain)
-                .background(Color.clear)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                
                 
 
-                
             }
-            .background(Image("background"))
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Image("background").scaledToFill())
             .confirmationDialog("Вы уверены, что хотите завершить игру?",
                                 isPresented: $confirmPresent,
                                 titleVisibility: .visible){
@@ -157,41 +154,12 @@ struct GameView: View {
             .fullScreenCover(isPresented: $startView, content: {
                 StartView()
             })
-            
-            
-        
-        
-        
-        
+
         }
-    
-        
-        
-        
+
         
     }
     
-    
-    
-    
-    
-
-
-//struct BigWordTextField: View {
-//    
-//    @State var word : Binding<String>
-//    var placeHolder : String
-//    
-//    var body: some View {
-//        TextField(placeHolder, text: word)
-//            .font(.system(size: 14))
-//            .padding()
-//            .background(Color.black)
-//            .cornerRadius(12)
-//    }
-//}
-//
-
 struct GameView_Previews: PreviewProvider {
     static var previews: some View {
         GameView(viewModel: GameViewModule(playerOne:
